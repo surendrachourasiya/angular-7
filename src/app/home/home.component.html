@@ -1,0 +1,24 @@
+
+<div class="row my-5">
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">SNO</th>
+            <th scope="col">Price</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Buy</th>
+            <th scope="col">Timestamp</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let trade of this.trades; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{trade.price}}</td>
+            <td>{{trade.amount}}</td>
+            <td>{{trade.buy}}</td>
+            <td>{{trade.timestamp | date}}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+<button class="btn btn-primary" (click)="logout()">Logout</button>

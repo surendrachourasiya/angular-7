@@ -1,0 +1,24 @@
+<form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+<div class="card mt-5" style="margin:auto;width: 600px;">
+    <div class="card-body">
+      <h5 class="card-title">Login</h5>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" placeholder="Email Address" formControlName="email">
+        <!-- <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+          <div *ngIf="f.email.errors.required">Email is required</div>
+          <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+      </div> -->
+      </div>
+      <div class="form-group">
+        <label for="email">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password">
+        <!-- <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">Password is required</div>
+          <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+      </div> -->
+      </div>
+      <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid">Login</button>
+    </div>
+  </div>
+</form>
