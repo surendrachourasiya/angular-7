@@ -12,38 +12,36 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  submitted = false;
+  errorMsg = '';
 
   constructor(private api: ApiService, private router: Router, private http: HttpClient, private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.errorMsg = '';
     this.loginForm = this.fb.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     })
   }
 
-  // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
-
   onLogin() {
-    this.submitted = true;
-
-        // stop here if form is invalid
-        if (this.loginForm.invalid) {
-            return;
-        }
+    // stop here if form is invalid
+    if (this.loginForm.invalid) {
+        return;
+    }
     let url = 'https://testwallet.angelium.net/api/jwt/api-token-auth/';
 
-    this.http.post('https://testwallet.angelium.net/api/jwt/api-token-auth/', this.loginForm.value)
+    this.http.post(url, this.loginForm.value)
       .subscribe(
         resp => {
           if (resp['token']) {
             this.api.setToken(resp['token']);
-            this.router.navigateByUrl('/dashboard');
+            this.router.navigateByUrl('/home');
+          } else {
+            this.errorMsg = resp['user']
           }
-        }, r => {
-          alert(r.error.error);
+        }, err => {
+          this.errorMsg = err.error;
         });
   }
 

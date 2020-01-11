@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ApiService } from '../shared/service/api.service';
+import { Trade } from '../shared/model.trades';
 
 @Component({
   selector: 'app-home',
@@ -8,16 +8,16 @@ import { ApiService } from '../shared/service/api.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  trades = [];
+  trades: Trade[] = [];
 
-  constructor(private router: Router, private api: ApiService,) { }
+  constructor(private api: ApiService) { }
 
   ngOnInit() {
     this.getData();
   }
 
+  // Get trade data
   getData() {
-    
     let url = 'https://testwallet.angelium.net/api/exchange/trades/';
 
     this.api.getApiData(url).subscribe(response => {
@@ -25,11 +25,6 @@ export class HomeComponent implements OnInit {
         this.trades = response['data']['trades']
       }
     });
-  } 
-
-  logout(){
-    localStorage.removeItem('TOKEN');
-    this.router.navigateByUrl('/login');
   }
 
 }

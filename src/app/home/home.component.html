@@ -1,5 +1,7 @@
-
-<div class="row my-5">
+<app-header></app-header>
+<div class="container">
+  <div class="row mt-3">
+    <div class="table-responsive">
     <table class="table table-striped">
         <thead>
           <tr>
@@ -11,6 +13,7 @@
           </tr>
         </thead>
         <tbody>
+          <ng-container *ngIf="trades.length>0">
           <tr *ngFor="let trade of this.trades; let i = index">
             <th scope="row">{{i+1}}</th>
             <td>{{trade.price}}</td>
@@ -18,7 +21,14 @@
             <td>{{trade.buy}}</td>
             <td>{{trade.timestamp | date}}</td>
           </tr>
+        </ng-container>
+        <ng-container *ngIf="trades.length == 0">
+          <tr>
+            <td colspan="5">Record not found</td>
+          </tr>
+        </ng-container>
         </tbody>
       </table>
+    </div>
 </div>
-<button class="btn btn-primary" (click)="logout()">Logout</button>
+</div>
